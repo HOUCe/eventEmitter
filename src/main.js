@@ -1,10 +1,18 @@
 require('./common/style/style.css');
 
-import eventEmitter from './common/event/eventEmitter.js';
-let emitter = new eventEmitter();
+// ES6 class test
+// import eventEmitter from './common/event/eventEmitter.js';
+// let emitter = new eventEmitter();
 
+// zepto based test
 // import eventEmitter from './common/event/eventEmitterBasedOnZepto.js';
 // let emitter = new eventEmitter;
+
+// node event test
+var eventEmitter = require('./common/event/node-eventEmitter.js');
+let emitter = new eventEmitter;
+// console.log(eventEmitter);
+// console.log(emitter);
 
 // console.log(eventEmitter);
 const f1Ele = document.querySelector('#w-favor1');
