@@ -1,0 +1,26 @@
+.w-favor {
+    background-position: -59px -630px;
+    background-repeat: no-repeat;
+    display: block;
+    width: 50px;
+    height: 50px;
+    text-align: center;
+    background-color: #73D661;
+    background-position: no-repeat;
+    background-image: url(//exp.bdstatic.com/static/article/pkg/article_sync_css_0_z_fd863d0.png);
+    margin-bottom: 3px;
+    text-decoration: none;
+    outline: 0;
+}
+a:hover {
+    background: #9ce290;
+    text-decoration: none;
+}
+.w-txt {
+    display: none;
+    height: 50px;
+    line-height: 50px;
+    color: #fff;
+    font-family: 'Microsoft Yahei',arial,"宋体",sans-serif;
+    font-size: 14px;
+}
