@@ -285,16 +285,16 @@ function _addListener(target, type, listener, prepend) {
         if (!existing.warned) {
             m = $getMaxListeners(target);
             if (m && m > 0 && existing.length > m) {
-            existing.warned = true;
-            const w = new Error('Possible EventEmitter memory leak detected. ' +
-                                `${existing.length} ${String(type)} listeners ` +
-                                'added. Use emitter.setMaxListeners() to ' +
-                                'increase limit');
-            w.name = 'MaxListenersExceededWarning';
-            w.emitter = target;
-            w.type = type;
-            w.count = existing.length;
-            process.emitWarning(w);
+                existing.warned = true;
+                const w = new Error('Possible EventEmitter memory leak detected. ' +
+                                    `${existing.length} ${String(type)} listeners ` +
+                                    'added. Use emitter.setMaxListeners() to ' +
+                                    'increase limit');
+                w.name = 'MaxListenersExceededWarning';
+                w.emitter = target;
+                w.type = type;
+                w.count = existing.length;
+                process.emitWarning(w);
             }
         }
     }
@@ -333,6 +333,7 @@ EventEmitter.prototype.once = function once(type, listener) {
     if (typeof listener !== 'function') {
         throw new TypeError('"listener" argument must be a function');
     }
+    // console.log(_onceWrap(this, type, listener))
     this.on(type, _onceWrap(this, type, listener));
     return this;
 };
