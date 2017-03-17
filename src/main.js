@@ -1,8 +1,9 @@
 require('./common/style/style.css');
 
 // ES6 class test
-import eventEmitter from './common/event/eventEmitter.js';
+import {eventEmitter} from './common/event/eventEmitter.js';
 let emitter = new eventEmitter();
+console.log(emitter);
 
 // zepto based test
 // import eventEmitter from './common/event/eventEmitterBasedOnZepto.js';
@@ -32,9 +33,10 @@ f1Ele.addEventListener('mouseout', function (e) {
 
 f1Ele.addEventListener('click', function (e) {
     let btnText = f1TextEle.innerHTML;
+    emitter.emit('favedBy1');
     if (btnText === '收藏') {
         f1TextEle.innerHTML = '已收藏';
-        emitter.emit('favedBy1');
+        // emitter.emit('favedBy1');
     }
     else {
         return;
@@ -53,9 +55,10 @@ f2Ele.addEventListener('mouseout', function (e) {
 
 f2Ele.addEventListener('click', function (e) {
     let btnText = f2TextEle.innerHTML;
+    emitter.emit('favedBy2');
     if (btnText === '收藏') {
         f2TextEle.innerHTML = '已收藏';
-        emitter.emit('favedBy2');
+        // emitter.emit('favedBy2');
     }
     else {
         return;
@@ -67,7 +70,14 @@ f2Ele.addEventListener('click', function (e) {
 emitter.once('favedBy1', function () {
     f2TextEle.innerHTML = '已收藏';
 })
-emitter.on('favedBy2', function () {
+emitter.once('favedBy1', function () {
+    console.log('favedBy1 emitted');
+})
+emitter.once('favedBy2', function t () {
     f1TextEle.innerHTML = '已收藏';
 })
+
+emitter.offAll();
+// var eventArray = emitter.listeners('favedBy1');
+// console.log(eventArray);
 

@@ -27,6 +27,10 @@ class eventEmitter {
         return this;
     }
 
+    addListener(event, listener) {
+        return this.on(event, listener);
+    }
+
     /**
     * 使用on方法，并劫持listener参数，注意this漂移问题.
     * @function参数解释
@@ -38,16 +42,16 @@ class eventEmitter {
     */
     once(event, listener) {
         // 使用箭头函数绑定this
-        // const fn => {
-        //     this.off(event, fn);
-        //     listener.apply(this, arguments);
-        // }
-
-        const self = this;
-        function fn () {
-            self.off(event, fn);
+        const fn = () => {
+            this.off(event, fn);
             listener.apply(this, arguments);
         }
+
+        // const self = this;
+        // function fn () {
+        //     self.off(event, fn);
+        //     listener.apply(self, arguments);
+        // }
 
         fn.listener = listener;
 
@@ -91,6 +95,41 @@ class eventEmitter {
     }
 
     /**
+     * 删除所有事件的监听函数
+     * @function
+     * @param {String} event - 想要删除的事件名称，字符串类型
+     * @returns {Object} 返回Emitter实例
+     * @example
+     * emitter.offAll(); emitter.offAll('foo');
+     */
+    offAll(event) {
+        if (!this.eventCollection) {
+            return this;
+        }
+        else if (typeof this.eventCollection[event] === 'undefined') {
+            let eventArray = Object.keys(this.eventCollection);
+            eventArray.forEach((v, i)=>{this.eventCollection[v].length = 0;})
+        }
+        else {
+            this.eventCollection[event].length = 0;
+        }
+
+        return this;
+    }
+
+    /**
+     * 所有指定事件的所有监听函数数组
+     * @function
+     * @param {String} event - 指定的事件名称，字符串类型
+     * @returns 指定事件的监听函数数组
+     * @example
+     * emitter.listeners('foo');
+     */
+    listeners(event) {
+        return this.eventCollection[event];
+    }
+
+    /**
      * 按照存储顺序，依次执行指定事件的监听函数
      * @function
      * @param {String} event - 想要触发的事件名称，字符串类型
@@ -119,9 +158,9 @@ class eventEmitter {
     }
 
 }
-/**
-* Exports Emitter
-*/
-export default eventEmitter;
+
+const event = new eventEmitter();
+
+export {eventEmitter, event};
 
 
